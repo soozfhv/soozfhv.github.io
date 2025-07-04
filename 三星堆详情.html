@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>三星堆文化节 - 德阳旅游</title>
+		<link rel="icon" href="img/logo.png" type="image/png">
+		<link rel="shortcut icon" href="logo.png" type="image/png">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<style>
+			:root {
+				--primary-color: #4a6fa5;
+				--secondary-color: #166088;
+				--accent-color: #4fc3f7;
+				--light-color: #f8f9fa;
+				--dark-color: #343a40;
+				--font-size: 16px;
+				--theme: 'light';
+				--border-radius: 8px;
+				--box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+				--transition: all 0.3s ease;
+			}
+
+			/* 基础样式 */
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: 'Microsoft YaHei', sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background-color: #f5f5f5;
+				font-size: var(--font-size);
+				transition: var(--transition);
+			}
+
+			/* 浅色主题 */
+			body.light-theme {
+				background-color: #f5f5f5;
+				color: #333;
+			}
+
+			body.light-theme .container,
+			body.light-theme .left-nav,
+			body.light-theme .right-nav,
+			body.light-theme .sidebar {
+				background-color: white;
+				color: #333;
+			}
+
+			body.light-theme .attraction,
+			body.light-theme .food-card,
+			body.light-theme .transportation-item {
+				background-color: white;
+				color: #333;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			body.light-theme footer {
+				background-color: #343a40;
+				color: #f8f9fa;
+			}
+
+			/* 深色主题 */
+			body.dark-theme {
+				background-color: #222;
+				color: #eee;
+			}
+
+			body.dark-theme .container,
+			body.dark-theme .left-nav,
+			body.dark-theme .right-nav,
+			body.dark-theme .sidebar {
+				background-color: #333;
+				color: #eee;
+			}
+
+			body.dark-theme .attraction,
+			body.dark-theme .food-card,
+			body.dark-theme .transportation-item {
+				background-color: #444;
+				color: #eee;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+			}
+
+			body.dark-theme footer {
+				background-color: #111;
+				color: #ddd;
+			}
+
+			/* 暖色主题 */
+			body.warm-theme {
+				--primary-color: #e67e22;
+				--secondary-color: #d35400;
+				--accent-color: #f39c12;
+				--light-color: #fef5e7;
+				--dark-color: #5d4037;
+				background-color: #fef5e7;
+				color: #5d4037;
+			}
+
+			body.warm-theme .container,
+			body.warm-theme .left-nav,
+			body.warm-theme .right-nav,
+			body.warm-theme .sidebar {
+				background-color: #fef5e7;
+				color: #5d4037;
+			}
+
+			body.warm-theme .attraction,
+			body.warm-theme .food-card,
+			body.warm-theme .transportation-item {
+				background-color: #fae5d3;
+				color: #5d4037;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			body.warm-theme footer {
+				background-color: #5d4037;
+				color: #fef5e7;
+			}
+
+			/* 深暖色主题 */
+			body.deep-warm-theme {
+				--primary-color: #e67e22;
+				--secondary-color: #d35400;
+				--accent-color: #f39c12;
+				--light-color: #3e2723;
+				--dark-color: #d7ccc8;
+				background-color: #3e2723;
+				color: #d7ccc8;
+			}
+
+			body.deep-warm-theme .container,
+			body.deep-warm-theme .left-nav,
+			body.deep-warm-theme .right-nav,
+			body.deep-warm-theme .sidebar {
+				background-color: #4e342e;
+				color: #d7ccc8;
+			}
+
+			body.deep-warm-theme .attraction,
+			body.deep-warm-theme .food-card,
+			body.deep-warm-theme .transportation-item {
+				background-color: #5d4037;
+				color: #d7ccc8;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+			}
+
+			body.deep-warm-theme footer {
+				background-color: #1b0000;
+				color: #d7ccc8;
+			}
+
+			/* 导航栏颜色修复 */
+			body.dark-theme .left-nav a,
+			body.deep-warm-theme .left-nav a {
+				color: #eee;
+			}
+
+			body.dark-theme .left-nav a:hover,
+			body.dark-theme .left-nav a.active,
+			body.deep-warm-theme .left-nav a:hover,
+			body.deep-warm-theme .left-nav a.active {
+				background-color: var(--primary-color);
+				color: white;
+			}
+
+			body.warm-theme .left-nav a {
+				color: var(--dark-color);
+			}
+
+			body.warm-theme .left-nav a:hover,
+			body.warm-theme .left-nav a.active {
+				background-color: var(--primary-color);
+				color: white;
+			}
+
+			/* 主容器 */
+			.main-container {
+				display: flex;
+				flex-wrap: wrap;
+				min-height: 100vh;
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 20px;
+				gap: 20px;
+			}
+
+			/* 导航栏 */
+			.left-nav {
+				flex: 0 0 220px;
+				background-color: var(--light-color);
+				padding: 20px;
+				order: 1;
+				border-radius: var(--border-radius);
+				box-shadow: var(--box-shadow);
+				height: fit-content;
+			}
+
+			.left-nav ul {
+				list-style: none;
+			}
+
+			.left-nav li {
+				margin-bottom: 10px;
+			}
+
+			.left-nav a {
+				display: block;
+				padding: 12px 15px;
+				color: var(--dark-color);
+				text-decoration: none;
+				border-radius: var(--border-radius);
+				transition: var(--transition);
+				font-size: 0.95em;
+			}
+
+			.left-nav a:hover,
+			.left-nav a.active {
+				background-color: var(--primary-color);
+				color: white;
+				transform: translateX(5px);
+			}
+
+			/* 内容区 */
+			.container {
+				flex: 1;
+				min-width: 0;
+				padding: 25px;
+				order: 2;
+				background-color: white;
+				border-radius: var(--border-radius);
+				box-shadow: var(--box-shadow);
+			}
+
+			/* 侧边栏 */
+			.sidebar {
+				flex: 0 0 280px;
+				padding: 20px;
+				background-color: var(--light-color);
+				order: 3;
+				border-radius: var(--border-radius);
+				box-shadow: var(--box-shadow);
+				height: fit-content;
+			}
+
+			/* 页眉 */
+			header {
+				text-align: center;
+				margin-bottom: 30px;
+				padding-bottom: 20px;
+				border-bottom: 2px solid var(--primary-color);
+			}
+
+			header h1 {
+				color: var(--primary-color);
+				font-size: 2.5em;
+				margin-bottom: 10px;
+			}
+
+			header p {
+				font-size: 1.1em;
+				color: var(--secondary-color);
+			}
+
+			/* 主题切换按钮 */
+			.theme-switcher {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				z-index: 100;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			.theme-btn {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				border: none;
+				cursor: pointer;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+				transition: var(--transition);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.2em;
+			}
+
+			.theme-btn:hover {
+				transform: scale(1.1);
+			}
+
+			.light-btn {
+				background: #f5f5f5;
+				color: #333;
+			}
+
+			.dark-btn {
+				background: #333;
+				color: #f5f5f5;
+			}
+
+			.warm-btn {
+				background: #fef5e7;
+				color: #e67e22;
+			}
+
+			.deep-warm-btn {
+				background: #3e2723;
+				color: #d7ccc8;
+			}
+
+			/* 景点部分 */
+			.attractions-section {
+				margin-bottom: 40px;
+			}
+
+			.section-title {
+				color: var(--primary-color);
+				margin-bottom: 20px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid var(--accent-color);
+			}
+
+			.attraction {
+				display: flex;
+				margin-bottom: 30px;
+				padding: 20px;
+				border-radius: var(--border-radius);
+				transition: var(--transition);
+			}
+
+			.attraction:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			}
+
+			.attraction-img {
+				flex: 0 0 40%;
+				max-width: 40%;
+				border-radius: var(--border-radius);
+				overflow: hidden;
+			}
+
+			.attraction-img img {
+				width: 100%;
+				height: auto;
+				display: block;
+				transition: var(--transition);
+			}
+
+			.attraction:hover .attraction-img img {
+				transform: scale(1.05);
+			}
+
+			.attraction-content {
+				flex: 1;
+				padding-left: 20px;
+			}
+
+			.attraction-title {
+				color: var(--secondary-color);
+				margin-bottom: 10px;
+				font-size: 1.5em;
+			}
+
+			.attraction-meta {
+				display: flex;
+				margin-bottom: 15px;
+				font-size: 0.9em;
+				color: #666;
+			}
+
+			body.dark-theme .attraction-meta,
+			body.deep-warm-theme .attraction-meta {
+				color: #aaa;
+			}
+
+			.attraction-meta span {
+				margin-right: 15px;
+				display: flex;
+				align-items: center;
+			}
+
+			.attraction-meta i {
+				margin-right: 5px;
+				color: var(--accent-color);
+			}
+
+			.attraction-desc {
+				margin-bottom: 15px;
+				line-height: 1.7;
+			}
+
+			.btn {
+				display: inline-block;
+				padding: 10px 20px;
+				background-color: var(--primary-color);
+				color: white;
+				border: none;
+				border-radius: var(--border-radius);
+				text-decoration: none;
+				font-size: 0.9em;
+				cursor: pointer;
+				transition: var(--transition);
+			}
+
+			.btn:hover {
+				background-color: var(--secondary-color);
+				transform: translateY(-2px);
+			}
+
+			/* 美食部分 */
+			.food-section {
+				margin-bottom: 40px;
+			}
+
+			.food-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+				gap: 20px;
+			}
+
+			.food-card {
+				border-radius: var(--border-radius);
+				overflow: hidden;
+				transition: var(--transition);
+			}
+
+			.food-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			}
+
+			.food-img {
+				height: 180px;
+				overflow: hidden;
+			}
+
+			.food-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: var(--transition);
+			}
+
+			.food-card:hover .food-img img {
+				transform: scale(1.1);
+			}
+
+			.food-info {
+				padding: 15px;
+			}
+
+			.food-name {
+				font-size: 1.2em;
+				margin-bottom: 5px;
+				color: var(--secondary-color);
+			}
+
+			.food-price {
+				color: var(--primary-color);
+				font-weight: bold;
+				margin-bottom: 10px;
+			}
+
+			/* 交通部分 */
+			.transportation-section {
+				margin-bottom: 40px;
+			}
+
+			.transportation-list {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 20px;
+			}
+
+			.transportation-item {
+				padding: 20px;
+				border-radius: var(--border-radius);
+				transition: var(--transition);
+			}
+
+			.transportation-item:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			}
+
+			.transport-icon {
+				font-size: 2em;
+				color: var(--accent-color);
+				margin-bottom: 15px;
+			}
+
+			.transport-title {
+				font-size: 1.3em;
+				margin-bottom: 10px;
+				color: var(--secondary-color);
+			}
+
+			/* 侧边栏内容 */
+			.event-highlights {
+				margin-bottom: 30px;
+			}
+
+			.event-list {
+				list-style: none;
+			}
+
+			.event-item {
+				padding: 15px 0;
+				border-bottom: 1px dashed #ddd;
+			}
+
+			body.dark-theme .event-item,
+			body.deep-warm-theme .event-item {
+				border-bottom-color: #555;
+			}
+
+			.event-time {
+				font-weight: bold;
+				color: var(--primary-color);
+				margin-bottom: 5px;
+			}
+
+			.event-name {
+				font-size: 1.1em;
+			}
+
+			.ticket-info {
+				background-color: var(--accent-color);
+				padding: 20px;
+				border-radius: var(--border-radius);
+				color: white;
+				margin-bottom: 30px;
+			}
+
+			.ticket-title {
+				font-size: 1.3em;
+				margin-bottom: 10px;
+			}
+
+			.ticket-price {
+				font-size: 1.8em;
+				font-weight: bold;
+				margin-bottom: 15px;
+			}
+
+			.contact-info {
+				margin-top: 30px;
+			}
+
+			.contact-item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+
+			.contact-icon {
+				font-size: 1.5em;
+				color: var(--accent-color);
+				margin-right: 15px;
+				width: 30px;
+				text-align: center;
+			}
+
+			/* 页脚 */
+			footer {
+				width: 100%;
+				padding: 30px 0;
+				text-align: center;
+				order: 4;
+				margin-top: 20px;
+			}
+
+			.footer-content {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+
+			.social-links {
+				margin: 20px 0;
+			}
+
+			.social-links a {
+				display: inline-block;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				border-radius: 50%;
+				background-color: rgba(255, 255, 255, 0.1);
+				color: white;
+				margin: 0 10px;
+				transition: var(--transition);
+			}
+
+			.social-links a:hover {
+				background-color: var(--accent-color);
+				transform: translateY(-3px);
+			}
+
+			.copyright {
+				font-size: 0.9em;
+				opacity: 0.8;
+			}
+
+			/* 响应式设计 */
+			@media (max-width: 1024px) {
+				.main-container {
+					flex-direction: column;
+				}
+
+				.left-nav {
+					flex: 1;
+					order: 1;
+				}
+
+				.container {
+					order: 2;
+				}
+
+				.sidebar {
+					flex: 1;
+					order: 3;
+				}
+
+				.attraction {
+					flex-direction: column;
+				}
+
+				.attraction-img {
+					flex: 1;
+					max-width: 100%;
+					margin-bottom: 15px;
+				}
+
+				.attraction-content {
+					padding-left: 0;
+				}
+			}
+
+			@media (max-width: 768px) {
+				.left-nav {
+					display: none;
+				}
+
+				.theme-switcher {
+					bottom: 10px;
+					right: 10px;
+				}
+
+				.theme-btn {
+					width: 40px;
+					height: 40px;
+					font-size: 1em;
+				}
+			}
+		</style>
+	</head>
+	<body class="light-theme">
+		<div class="main-container">
+			<!-- 左侧导航 -->
+			<nav class="left-nav">
+				<ul>
+					<li><a href="#overview" class="active">活动概览</a></li>
+					<li><a href="#attractions">特色景点</a></li>
+					
+					<li><a href="#transportation">交通指南</a></li>
+					<li><a href="#tickets">票务信息</a></li>
+					<li><a href="#contact">联系我们</a></li>
+				</ul>
+			</nav>
+
+			<!-- 主要内容区 -->
+			<main class="container">
+				<header id="overview">
+					<h1>三星堆文化节</h1>
+					<p>探索古蜀文明，感受神秘三星堆</p>
+				</header>
+
+				<!-- 景点部分 -->
+				<section class="attractions-section" id="attractions">
+					<h2 class="section-title">特色景点</h2>
+
+					<div class="attraction">
+						<div class="attraction-img">
+							<img src="img/三星堆.png" alt="三星堆博物馆">
+						</div>
+						<div class="attraction-content">
+							<h3 class="attraction-title">三星堆博物馆</h3>
+							<div class="attraction-meta">
+								<span><i class="fas fa-map-marker-alt"></i> 广汉市西安路133号</span>
+								<span><i class="fas fa-clock"></i> 8:30-18:00</span>
+								<span><i class="fas fa-star"></i> 4.8/5</span>
+							</div>
+							<p class="attraction-desc">
+								三星堆博物馆是展示三星堆遗址出土文物的专题性博物馆，馆藏文物数千件，包括青铜大立人、青铜神树、黄金面具等国宝级文物，全面展示了古蜀文明的辉煌成就。
+							</p>
+							
+						</div>
+					</div>
+
+					<div class="attraction">
+						<div class="attraction-img">
+							<img src="img/三星堆遗址.png" alt="三星堆遗址">
+						</div>
+						<div class="attraction-content">
+							<h3 class="attraction-title">三星堆遗址</h3>
+							<div class="attraction-meta">
+								<span><i class="fas fa-map-marker-alt"></i> 广汉市三星堆镇</span>
+								<span><i class="fas fa-clock"></i> 8:30-17:30</span>
+								<span><i class="fas fa-star"></i> 4.7/5</span>
+							</div>
+							<p class="attraction-desc">
+								三星堆遗址是迄今在西南地区发现的范围最大、延续时间最长、文化内涵最丰富的古城、古国、古蜀文化遗址，被誉为"长江文明之源"。
+							</p>
+							
+						</div>
+					</div>
+
+					<div class="attraction">
+						<div class="attraction-img">
+							<img src="img/三星堆文化公园.png" alt="三星堆文化公园">
+						</div>
+						<div class="attraction-content">
+							<h3 class="attraction-title">三星堆文化公园</h3>
+							<div class="attraction-meta">
+								<span><i class="fas fa-map-marker-alt"></i> 广汉市三星堆博物馆旁</span>
+								<span><i class="fas fa-clock"></i> 全天开放</span>
+								<span><i class="fas fa-star"></i> 4.5/5</span>
+							</div>
+							<p class="attraction-desc">
+								三星堆文化公园是以三星堆文化为主题的大型公园，园内有各种仿古建筑、雕塑和景观，再现了古蜀先民的生活场景，是休闲娱乐和了解古蜀文化的好去处。
+							</p>
+							
+						</div>
+					</div>
+				</section>
+
+				
+
+				<!-- 交通部分 -->
+				<section class="transportation-section" id="transportation">
+					<h2 class="section-title">交通指南</h2>
+					<div class="transportation-list">
+						<div class="transportation-item">
+							<div class="transport-icon">
+								<i class="fas fa-bus"></i>
+							</div>
+							<h3 class="transport-title">公交</h3>
+							<p>从成都昭觉寺汽车站乘坐直达广汉的班车，约40分钟一班，车程1小时左右，到达广汉后转乘6路公交车直达三星堆博物馆。</p>
+						</div>
+
+						<div class="transportation-item">
+							<div class="transport-icon">
+								<i class="fas fa-train"></i>
+							</div>
+							<h3 class="transport-title">高铁</h3>
+							<p>从成都东站乘坐成绵乐城际铁路至广汉北站，车程约18分钟，出站后乘坐出租车约15分钟可达三星堆博物馆。</p>
+						</div>
+
+						<div class="transportation-item">
+							<div class="transport-icon">
+								<i class="fas fa-car"></i>
+							</div>
+							<h3 class="transport-title">自驾</h3>
+							<p>从成都出发，经成绵高速至广汉出口下，沿北京大道、西安路行驶约10公里即可到达三星堆博物馆，全程约1小时。</p>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<!-- 右侧边栏 -->
+			<aside class="sidebar">
+				<div class="event-highlights">
+					<h2 class="section-title">活动亮点</h2>
+					<ul class="event-list">
+						<li class="event-item">
+							<div class="event-time">9:00-11:00</div>
+							<div class="event-name">青铜器制作体验</div>
+						</li>
+						<li class="event-item">
+							<div class="event-time">11:30-12:30</div>
+							<div class="event-name">古蜀祭祀仪式表演</div>
+						</li>
+						<li class="event-item">
+							<div class="event-time">14:00-15:30</div>
+							<div class="event-name">三星堆考古讲座</div>
+						</li>
+						<li class="event-item">
+							<div class="event-time">16:00-17:30</div>
+							<div class="event-name">古蜀服饰体验</div>
+						</li>
+						<li class="event-item">
+							<div class="event-time">19:30-21:00</div>
+							<div class="event-name">三星堆灯光秀</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="ticket-info" id="tickets">
+					<h3 class="ticket-title">门票信息</h3>
+					<div class="ticket-price">¥72/人</div>
+					<p>学生、老人凭证件半价优惠</p>
+					<p>1.2米以下儿童免费</p>
+					<a href="#" class="btn">立即购票</a>
+				</div>
+
+				<div class="contact-info" id="contact">
+					<h2 class="section-title">联系我们</h2>
+					<div class="contact-item">
+						<div class="contact-icon">
+							<i class="fas fa-phone-alt"></i>
+						</div>
+						<div>0838-5651526</div>
+					</div>
+					<div class="contact-item">
+						<div class="contact-icon">
+							<i class="fas fa-envelope"></i>
+						</div>
+						<div>info@sanxingdui.com</div>
+					</div>
+					<div class="contact-item">
+						<div class="contact-icon">
+							<i class="fas fa-map-marker-alt"></i>
+						</div>
+						<div>四川省德阳市广汉市西安路133号</div>
+					</div>
+				</div>
+			</aside>
+
+			<!-- 页脚 -->
+			<footer>
+				<div class="footer-content">
+					<div class="social-links">
+						<a href="#"><i class="fab fa-weixin"></i></a>
+						<a href="#"><i class="fab fa-weibo"></i></a>
+						<a href="#"><i class="fab fa-qq"></i></a>
+						<a href="#"><i class="fab fa-tiktok"></i></a>
+					</div>
+					<p class="copyright">© 2025 制作人：软件242  龚胜利 版权所有</p>
+				</div>
+			</footer>
+		</div>
+
+		<!-- 主题切换按钮 -->
+		<div class="theme-switcher">
+			<button class="theme-btn light-btn" onclick="setTheme('light')" title="浅色模式">浅色</button>
+			<button class="theme-btn dark-btn" onclick="setTheme('dark')" title="深色模式">深色</button>
+			<button class="theme-btn warm-btn" onclick="setTheme('warm')" title="暖色模式">暖色</button>
+			<button class="theme-btn deep-warm-btn" onclick="setTheme('deep-warm')" title="深暖模式">深暖</button>
+		</div>
+
+		<script>
+			// 主题切换功能
+			function setTheme(theme) {
+				document.body.className = theme + '-theme';
+				localStorage.setItem('theme', theme);
+			}
+
+			// 加载保存的主题
+			const savedTheme = localStorage.getItem('theme') || 'light';
+			setTheme(savedTheme);
+
+			// 导航栏高亮
+			document.querySelectorAll('.left-nav a').forEach(link => {
+				link.addEventListener('click', function() {
+					document.querySelectorAll('.left-nav a').forEach(a => a.classList.remove('active'));
+					this.classList.add('active');
+				});
+			});
+
+			// 平滑滚动
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function(e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						targetElement.scrollIntoView({
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

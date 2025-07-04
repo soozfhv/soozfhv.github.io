@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅在德阳，乐在德阳</title>
+	<link rel="icon" href="img/logo.png" type="image/png">
+	<link rel="shortcut icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-size: 16px;
+            --theme: 'light';
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: var(--font-size);
+            transition: var(--transition);
+        }
+
+        /* 浅色主题 */
+        body.light-theme {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        body.light-theme .container,
+        body.light-theme .left-nav,
+        body.light-theme .right-nav,
+        body.light-theme .sidebar {
+            background-color: white;
+            color: #333;
+        }
+
+        body.light-theme .attraction,
+        body.light-theme .food-card,
+        body.light-theme .transportation-item {
+            background-color: white;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        /* 深色主题 */
+        body.dark-theme {
+            background-color: #222;
+            color: #eee;
+        }
+
+        body.dark-theme .container,
+        body.dark-theme .left-nav,
+        body.dark-theme .right-nav,
+        body.dark-theme .sidebar {
+            background-color: #333;
+            color: #eee;
+        }
+
+        body.dark-theme .attraction,
+        body.dark-theme .food-card,
+        body.dark-theme .transportation-item {
+            background-color: #444;
+            color: #eee;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme footer {
+            background-color: #111;
+            color: #ddd;
+        }
+
+        /* 暖色主题 */
+        body.warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #fef5e7;
+            --dark-color: #5d4037;
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .container,
+        body.warm-theme .left-nav,
+        body.warm-theme .right-nav,
+        body.warm-theme .sidebar {
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .attraction,
+        body.warm-theme .food-card,
+        body.warm-theme .transportation-item {
+            background-color: #fae5d3;
+            color: #5d4037;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.warm-theme footer {
+            background-color: #5d4037;
+            color: #fef5e7;
+        }
+
+        /* 深暖色主题 */
+        body.deep-warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #3e2723;
+            --dark-color: #d7ccc8;
+            background-color: #3e2723;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .container,
+        body.deep-warm-theme .left-nav,
+        body.deep-warm-theme .right-nav,
+        body.deep-warm-theme .sidebar {
+            background-color: #4e342e;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .attraction,
+        body.deep-warm-theme .food-card,
+        body.deep-warm-theme .transportation-item {
+            background-color: #5d4037;
+            color: #d7ccc8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.deep-warm-theme footer {
+            background-color: #1b0000;
+            color: #d7ccc8;
+        }
+
+        /* 导航栏颜色修复 */
+        body.dark-theme .left-nav a,
+        body.deep-warm-theme .left-nav a {
+            color: #eee;
+        }
+
+        body.dark-theme .left-nav a:hover, 
+        body.dark-theme .left-nav a.active,
+        body.deep-warm-theme .left-nav a:hover,
+        body.deep-warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        body.warm-theme .left-nav a {
+            color: var(--dark-color);
+        }
+
+        body.warm-theme .left-nav a:hover,
+        body.warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 三栏布局 */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* 导航栏 */
+        .left-nav {
+            flex: 0 0 220px;
+            background-color: var(--light-color);
+            padding: 20px;
+            order: 1;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        .left-nav ul {
+            list-style: none;
+        }
+
+        .left-nav li {
+            margin-bottom: 10px;
+        }
+
+        .left-nav a {
+            display: block;
+            padding: 12px 15px;
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-size: 0.95em;
+        }
+
+        .left-nav a:hover, .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* 内容区 */
+        .container {
+            flex: 1;
+            min-width: 0;
+            padding: 25px;
+            order: 2;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            flex: 0 0 280px;
+            padding: 20px;
+            background-color: var(--light-color);
+            order: 3;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 1200px) {
+            .main-container {
+                padding: 15px;
+            }
+            .left-nav {
+                flex: 0 0 200px;
+            }
+            .sidebar {
+                flex: 0 0 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .left-nav {
+                flex: 0 0 100%;
+            }
+            .container {
+                flex: 0 0 70%;
+            }
+            .sidebar {
+                flex: 0 0 30%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+            }
+            .left-nav, .container, .sidebar {
+                flex: 0 0 100%;
+            }
+        }
+
+        /* 内容区域样式 */
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* 景点卡片样式 */
+        .attraction {
+            display: flex;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .attraction:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .attraction-img {
+            flex: 0 0 40%;
+            overflow: hidden;
+        }
+
+        .attraction-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .attraction-info {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* 美食卡片样式 */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .food-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .food-info {
+            padding: 15px;
+        }
+
+        .location-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .location-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* 侧边栏样式 */
+        .sidebar-widget {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .sidebar-widget h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popular-posts li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .popular-posts a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .popular-posts a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .theme-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .theme-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .font-size-control {
+            margin-top: 20px;
+        }
+
+        .font-size-control button {
+            padding: 8px 12px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .font-size-control button:hover {
+            background: #f0f0f0;
+        }
+
+        /* 图片放大效果 */
+        .zoomable-img {
+            transition: transform 0.3s;
+            cursor: zoom-in;
+        }
+
+        .zoomable-img:hover {
+            transform: scale(1.05);
+        }
+
+        .zoomable-img.zoomed {
+            transform: scale(1.8);
+            cursor: zoom-out;
+            z-index: 100;
+            position: relative;
+        }
+
+        /* 详情展开效果 */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .expandable-content.expanded {
+            max-height: 1000px;
+        }
+
+        .expand-toggle {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .expand-toggle:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 加载动画 */
+        .loader {
+            display: none;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 轮播图样式 */
+        .header-slideshow {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 40px;
+        }
+
+        .slide-overlay h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-overlay p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1em;
+            transition: var(--transition);
+        }
+
+        .slide-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 广告弹窗样式 */
+        #divout {
+            position: fixed;
+            width: 300px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #divout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        #divIn {
+            margin-bottom: 15px;
+        }
+
+        #divIn p {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        #greeting {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px !important;
+        }
+
+        #close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #close:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* 响应式图片 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 其他细节调整 */
+        .dropdown-content {
+            display: none;
+            padding-left: 15px;
+        }
+
+        .dropdown-content a {
+            font-size: 0.9em;
+            padding: 8px 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header-slideshow {
+                height: 350px;
+            }
+            
+            .slide-overlay {
+                padding: 20px;
+            }
+            
+            .slide-overlay h1 {
+                font-size: 1.8em;
+            }
+            
+            .slide-overlay p {
+                font-size: 1em;
+            }
+            
+            .attraction {
+                flex-direction: column;
+            }
+            
+            .attraction-img {
+                flex: 0 0 auto;
+                height: 250px;
+            }
+            
+            #divout {
+                width: 250px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-slideshow {
+                height: 250px;
+            }
+            
+            .slide-overlay h1 {
+                font-size: 1.5em;
+            }
+            
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container, .left-nav, .sidebar {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- 广告弹窗 -->
+    <div id="divout">
+        <div id="divIn">
+            <p id="greeting" style="font-size: 24px; color: white;">遇见德阳，遇见不一样的蜀地风情！</p>
+            <p>三星堆的神秘，等待你来探索！</p>
+            <p>蓥山峡谷的壮美，邀你来征服！</p>
+            <p>德阳干锅的麻辣，盼你来品尝！</p>
+            <p>欢迎来到古蜀文明发源地！</p>
+            <p>关注我们，发现德阳更多隐藏美景</p>
+            <p>漫步德阳，感受历史与美食的双重盛宴</p>
+            <p>德阳的四季，都是最美的风景</p>
+        </div>
+        <span id="close">x</span>
+    </div>
+    
+    <!-- 轮播图头部 -->
+    <div class="header-slideshow">
+        <!-- 轮播图1 - 三星堆 -->
+        <div class="slide active" style="background-image: url('img/三星堆.png');">
+            <div class="slide-overlay">
+                <h1>探索三星堆古蜀文明</h1>
+                <p>揭秘长江文明之源，感受3000多年前的神秘古蜀文化</p>
+                <button class="slide-btn">了解更多</button>
+            </div>
+        </div>
+        
+        <!-- 轮播图2 - 德阳全景 -->
+        <div class="slide" style="background-image: url('img/德阳.png');">
+            <div class="slide-overlay">
+                <h1>魅力德阳欢迎您</h1>
+                <p>历史文化与现代工业交融的美丽城市</p>
+                <button class="slide-btn">了解更多</button>
+            </div>
+        </div>
+        
+        <!-- 轮播图3 - 德阳美食 -->
+        <div class="slide" style="background-image: url('img/德阳美食.png');">
+            <div class="slide-overlay">
+                <h1>品味德阳美食</h1>
+                <p>从德阳凉粉到孝泉牛肉，体验舌尖上的美味</p>
+                <button class="slide-btn">了解更多</button>
+            </div>
+        </div>
+        
+        <!-- 轮播图4 - 孝泉古镇 -->
+        <div class="slide" style="background-image: url('img/孝泉古镇.png');">
+            <div class="slide-overlay">
+                <h1>漫步孝泉古镇</h1>
+                <p>感受千年古镇的孝文化与悠闲生活</p>
+                <button class="slide-btn">了解更多</button>
+            </div>
+        </div>
+        
+        <!-- 轮播指示器 -->
+        <div class="slide-indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+            <div class="indicator" data-slide="3"></div>
+        </div>
+    </div>
+    
+    <!-- 主容器 - 三栏布局 -->
+    <div class="main-container">
+        <!-- 左侧导航栏 -->
+        <nav class="left-nav">
+            <ul>
+                <li><a href="#overview" class="active">城市概况</a></li>
+				<li><a href="时间显示.html" calss="active">时间显示</a></li>
+                <li><a href="#attractions">旅游景点</a></li>
+                <li><a href="#food">特色美食</a></li>
+                <li><a href="#transportation">交通指南</a></li>
+                <li><a href="#tips">旅游贴士</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">实用工具 <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="https://www.12306.cn" target="_blank">火车票预订</a>
+                        <a href="https://www.ctrip.com" target="_blank">酒店预订</a>
+                        <a href="https://www.meituan.com" target="_blank">当地团购</a>
+                        <a href="https://weather.cma.cn/">德阳天气</a>
+                    </div>
+                </li>
+            </ul>
+            
+            <!-- 主题切换 -->
+            <div class="sidebar-widget">
+                <h3>主题设置</h3>
+                <div class="theme-switcher">
+                    <button class="theme-btn light-theme-btn active">浅色</button>
+                    <button class="theme-btn dark-theme-btn">深色</button>
+                    <button class="theme-btn warm-theme-btn">暖色</button>
+                    <button class="theme-btn deep-warm-theme-btn">深暖</button>
+                </div>
+                <div class="font-size-control">
+                    <h3>字体大小</h3>
+                    <button class="font-smaller">A-</button>
+                    <button class="font-default">A</button>
+                    <button class="font-larger">A+</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 主要内容区 -->
+        <div class="container">
+            <div class="loader"></div>
+            
+            <div id="content-area">
+                <!-- 动态加载的内容将在这里显示 -->
+                <section id="overview">
+                    <h2>城市概况</h2>
+                    <p>德阳是四川省下辖的地级市，位于成都平原东北部，距成都约50公里，是成德眉资同城化发展的重要组成部分。德阳是中国重大技术装备制造业基地、国家首批新型工业化产业示范基地，同时也是中国优秀旅游城市。</p>
+                    <p>德阳历史悠久，文化底蕴深厚，最著名的当属三星堆遗址，被誉为"长江文明之源"。此外，德阳还有绵竹年画、德阳潮扇等非物质文化遗产。</p>
+                    <p>德阳气候温和，四季分明，年平均气温16℃左右，适宜全年旅游。</p>
+                </section>
+                
+                <section id="attractions">
+                    <h2>旅游景点</h2>
+                    
+                    <div class="attraction">
+                        <div class="attraction-img">
+                            <img src="img/三星堆.png" alt="三星堆博物馆" class="zoomable-img">
+                        </div>
+                        <div class="attraction-info">
+                            <h3>三星堆博物馆</h3>
+                            <p>三星堆遗址是迄今在西南地区发现的范围最大、延续时间最长、文化内涵最丰富的古城、古国、古蜀文化遗址，被誉为"长江文明之源"。</p>
+                            <div class="expandable-content">
+                                <p>博物馆展示了大量青铜器、金器、玉器、陶器等珍贵文物，其中青铜大立人、青铜神树、黄金面具等堪称国宝级文物。</p>
+                                <p><strong>开放时间：</strong>8:30-18:00（17:00停止售票）</p>
+                                <p><strong>门票价格：</strong>72元/人</p>
+                                <p><strong>建议游玩时间：</strong>3-4小时</p>
+                                <p><strong>地址：</strong>德阳市广汉市西安路133号</p>
+                            </div>
+                            <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    
+                    <div class="attraction">
+                        <div class="attraction-img">
+                            <img src="img/德阳文庙.png" alt="德阳文庙" class="zoomable-img">
+                        </div>
+                        <div class="attraction-info">
+                            <h3>德阳文庙</h3>
+                            <p>德阳文庙始建于南宋，是四川省保存最完整的文庙之一，现为全国重点文物保护单位。</p>
+                            <div class="expandable-content">
+                                <p>文庙建筑群规模宏大，布局严谨，包括棂星门、大成门、大成殿、崇圣祠等建筑，展现了典型的中国传统建筑风格。</p>
+                                <p><strong>开放时间：</strong>9:00-17:00</p>
+                                <p><strong>门票价格：</strong>免费</p>
+                                <p><strong>建议游玩时间：</strong>1-2小时</p>
+                                <p><strong>地址：</strong>德阳市旌阳区文庙街</p>
+                            </div>
+                            <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    
+                    <div class="attraction">
+                        <div class="attraction-img">
+                            <img src="img/孝泉古镇.png" alt="孝泉古镇" class="zoomable-img">
+                        </div>
+                        <div class="attraction-info">
+                            <h3>孝泉古镇</h3>
+                            <p>孝泉古镇因"孝"而得名，已有2000多年历史，是中国孝文化发源地之一，古镇保留了大量明清时期的建筑风貌。</p>
+                            <div class="expandable-content">
+                                <p>古镇内有延祚寺、姜孝祠等古迹，还有著名的孝泉牛肉等美食。每年农历三月三会举办孝文化旅游节。</p>
+                                <p><strong>开放时间：</strong>全天</p>
+                                <p><strong>门票价格：</strong>免费</p>
+                                <p><strong>建议游玩时间：</strong>2-3小时</p>
+                                <p><strong>地址：</strong>德阳市旌阳区孝泉镇</p>
+                            </div>
+                            <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+					
+					<div class="attraction">
+					    <div class="attraction-img">
+					        <img src="img/罗江瀑布.png" alt="孝泉古镇" class="zoomable-img">
+					    </div>
+					    <div class="attraction-info">
+					        <h3>罗江瀑布</h3>
+					        <p>罗江瀑布隐匿于苍翠的群峦之间，如一条银龙自云端俯冲而下。百米高的崖壁被水流经年累月地雕琢，呈现出青黑交错的岩纹，而瀑布便在这天然的竖琴上奏响永恒的交响——先是雷霆般的轰鸣在谷底炸裂，继而化作万千细碎珍珠，在阳光下折射出虹彩。</p>
+					        <div class="expandable-content">
+					            <p>罗江瀑布每年旅游的人数数不胜数。每年农历五月会举办罗泉瀑布旅游节。</p>
+					            <p><strong>开放时间：</strong>全天</p>
+					            <p><strong>门票价格：</strong>免费</p>
+					            <p><strong>建议游玩时间：</strong>2-3小时</p>
+					            <p><strong>地址：</strong>德阳市</p>
+					        </div>
+					        <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+					    </div>
+					</div>
+					
+					<div class="attraction">
+					    <div class="attraction-img">
+					        <img src="img/绵竹年画村.png" alt="孝泉古镇" class="zoomable-img">
+					    </div>
+					    <div class="attraction-info">
+					        <h3>绵竹年画村</h3>
+					        <p>绵竹年画村因"孝"而得名，已有2000多年历史，是中国孝文化发源地之一，村里面保留了大量明清时期的建筑风貌。</p>
+					        <div class="expandable-content">
+					            <p>村里面有大量的年画。每年农历四月会举办绵竹年画村旅游节。</p>
+					            <p><strong>开放时间：</strong>全天</p>
+					            <p><strong>门票价格：</strong>免费</p>
+					            <p><strong>建议游玩时间：</strong>2-3小时</p>
+					            <p><strong>地址：</strong>德阳市绵竹年画村</p>
+					        </div>
+					        <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+					    </div>
+					</div>
+					
+					<div class="attraction">
+					    <div class="attraction-img">
+					        <img src="img/东湖山公园.png" alt="孝泉古镇" class="zoomable-img">
+					    </div>
+					    <div class="attraction-info">
+					        <h3>东湖山公园</h3>
+					        <p>德阳市区的“城市绿肺”，湖光山色，适合晨跑、野餐、登玉皇观俯瞰全景。</p>
+					        <div class="expandable-content">
+					            <p>公园里面山清水秀，鸟语花香。</p>
+					            <p><strong>开放时间：</strong>全天</p>
+					            <p><strong>门票价格：</strong>免费</p>
+					            <p><strong>建议游玩时间：</strong>2-3小时</p>
+					            <p><strong>地址：</strong>德阳市东湖公园</p>
+					        </div>
+					        <span class="expand-toggle">展开详情 <i class="fas fa-chevron-down"></i></span>
+					    </div>
+					</div>
+                </section>
+                
+                <section id="food">
+                    <h2>特色美食</h2>
+                    <p>德阳地处川西平原，饮食文化深受川菜影响，同时也有自己的地方特色。以下是德阳不容错过的美食：</p>
+                    
+                    <div class="food-grid">
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/德阳凉粉.png" alt="德阳凉粉" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>德阳凉粉</h3>
+                                <p>德阳凉粉是当地最具特色的小吃之一，选用优质豌豆制作，口感爽滑，配上特制的辣椒油、蒜泥、花椒等调料，麻辣鲜香。</p>
+                                <p><strong>推荐店铺：</strong>王凉粉、刘记凉粉</p>
+                                <p><strong>价格：</strong>6-10元/份</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                        
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/孝泉牛肉.png" alt="孝泉牛肉" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>孝泉牛肉</h3>
+                                <p>孝泉牛肉选用优质黄牛肉，采用传统工艺卤制，肉质鲜嫩，回味悠长，是德阳最具代表性的美食之一。</p>
+                                <p><strong>推荐店铺：</strong>孝泉牛肉馆、马昌恒牛肉</p>
+                                <p><strong>价格：</strong>60-100元/斤</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                        
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/德阳干锅.png" alt="德阳干锅" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>德阳干锅</h3>
+                                <p>德阳干锅以麻辣鲜香著称，食材丰富多样，常见的有干锅鸡、干锅兔、干锅虾等，配以多种香料炒制而成。</p>
+                                <p><strong>推荐店铺：</strong>德阳干锅王、老字号干锅</p>
+                                <p><strong>价格：</strong>40-80元/锅</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/张飞牛肉.png" alt="张飞牛肉" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>张飞牛肉</h3>
+                                <p>张飞牛肉是德阳传统名菜，选用优质黄牛肉，采用秘制配方腌制后风干而成。肉质紧实有嚼劲，咸香适口，回味悠长，是佐酒下饭的佳品。</p>
+                                <p><strong>推荐店铺：</strong>张飞牛肉专卖店、老字号牛肉铺</p>
+                                <p><strong>价格：</strong>60-100元/斤</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/兔.png" alt="黄许哑巴兔" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>黄许哑巴兔</h3>
+                                <p>黄许哑巴兔是德阳特色美食，选用新鲜兔肉，配以多种香料和辣椒烹制而成。肉质鲜嫩，麻辣鲜香，因最初由黄许镇一位哑巴厨师创制而得名。</p>
+                                <p><strong>推荐店铺：</strong>黄许哑巴兔总店、德阳特色兔肉馆</p>
+                                <p><strong>价格：</strong>80-120元/份</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                        <div class="food-card">
+                            <div class="food-img">
+                                <img src="img/绵竹笋子.png" alt="绵竹笋子" class="zoomable-img">
+                            </div>
+                            <div class="food-info">
+                                <h3>绵竹笋子</h3>
+                                <p>绵竹笋子是德阳绵竹特产，选用当地新鲜竹笋，配以腊肉或鸡肉炖煮而成。笋子脆嫩爽口，汤汁鲜美，是春季不可错过的时令美食。</p>
+                                <p><strong>推荐店铺：</strong>绵竹农家乐、德阳山珍馆</p>
+                                <p><strong>价格：</strong>40-60元/份</p>
+                                <button class="location-btn">查看位置</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="transportation">
+                    <h2>交通指南</h2>
+                    
+                    <div class="transportation-item">
+                        <h3>如何到达德阳</h3>
+                        <p><strong>飞机：</strong>德阳没有机场，最近的机场是成都双流国际机场和天府国际机场，从机场可乘坐高铁或大巴前往德阳。</p>
+                        <p><strong>高铁：</strong>成都东站、成都站、成都南站均有高铁或动车前往德阳站，车程约30分钟。</p>
+                        <p><strong>汽车：</strong>成都昭觉寺汽车站、成都东站汽车站有班车前往德阳，车程约1小时。</p>
+                    </div>
+                    
+                    <div class="transportation-item">
+                        <h3>市内交通</h3>
+                        <p><strong>公交车：</strong>德阳市区公交线路发达，票价1-2元，可到达主要景点和商圈。</p>
+                        <p><strong>出租车：</strong>起步价5元/1公里，之后1.8元/公里。</p>
+                        <p><strong>共享单车：</strong>市区内有共享单车和共享电动车，适合短途出行。</p>
+                    </div>
+                </section>
+                
+                <section id="tips">
+                    <h2>旅游贴士</h2>
+                    <div class="transportation-item">
+                        <h3>最佳旅游时间</h3>
+                        <p>德阳四季皆宜旅游，但最佳时间是春秋两季（3-5月，9-11月），气候宜人，景色优美。</p>
+                    </div>
+                    
+                    <div class="transportation-item">
+                        <h3>住宿建议</h3>
+                        <p>德阳市区有多种住宿选择，从经济型酒店到星级酒店都有。建议选择旌阳区或靠近景点的酒店，方便出行。</p>
+                    </div>
+                    
+                    <div class="transportation-item">
+                        <h3>购物推荐</h3>
+                        <p>德阳特产有绵竹年画、德阳潮扇、孝泉牛肉、中江挂面等，可在市区特产店或景区购买。</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- 右侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3>热门景点</h3>
+                <ul class="popular-posts">
+                    <li><a href="#" class="sidebar-link" data-section="attractions" data-target="三星堆博物馆">三星堆博物馆</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="attractions" data-target="德阳文庙">德阳文庙</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="attractions" data-target="孝泉古镇">孝泉古镇</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="attractions" data-target="罗江瀑布">罗江瀑布</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="attractions" data-target="绵竹年画村">绵竹年画村</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-widget">
+                <h3>推荐美食</h3>
+                <ul class="popular-posts">
+                    <li><a href="#" class="sidebar-link" data-section="food" data-target="德阳凉粉">德阳凉粉</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="food" data-target="孝泉牛肉">孝泉牛肉</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="food" data-target="张飞牛肉">张飞牛肉</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="food" data-target="德阳干锅">德阳干锅</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="food" data-target="绵笋竹子">绵笋竹子</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-widget">
+                <h3>旅游服务</h3>
+                <ul class="popular-posts">
+                    <li><a href="#" class="sidebar-link" data-section="transportation">交通指南</a></li>
+                    <li><a href="#" class="sidebar-link" data-section="tips">旅游贴士</a></li>
+                    <li><a href="https://weather.cma.cn/">德阳天气</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                    <li><a href="https://map.baidu.com/search/%E5%BE%B7%E9%98%B3%E5%B8%82/@11622373,3627754,13z?querytype=s&wd=%E5%9B%9B%E5%B7%9D%E7%9C%81%E5%BE%B7%E9%98%B3%E5%B8%82%E5%B8%82%E8%BE%96%E5%8C%BA&c=240&pn=0&device_ratio=2&da_src=shareurl">德阳地图</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-widget">
+                <h3>近期活动</h3>
+                <div class="event-carousel">
+                    <div class="event-slide active">
+                        <h4>三星堆文化节</h4>
+                        <p>2024年10月1日-7日</p>
+                        <a href="三星堆详情.html">了解更多</a>
+                    </div>
+                    <div class="event-slide">
+                        <h4>德阳美食节</h4>
+                        <p>2024年11月15日-20日</p>
+                        <a href="德阳美食节.html">了解更多</a>
+                    </div>
+                    <div class="event-slide">
+                        <h4>孝文化旅游节</h4>
+                        <p>2024年4月</p>
+                        <a href="孝文化旅游节.html">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <p>© 2025 德阳旅游介绍 | 设计制作：软件242 第七组</p>
+		<p>龚胜利，邓浩鹏，廖子宇，尚超</p>
+        <p>注：本网站图片仅为示意，实际效果依据真实为准</p>
+       
+    </footer>
+    
+    <!-- 智能体代码 -->
+    <script type="text/javascript" src="https://robot.chaoxing.com/sdk/CxRobotSdkJs.js"></script>
+    <script type="text/javascript">
+        CxRobotSdkJs.init("https://robot.chaoxing.com/embedChat?unitId=2711&robotId=9bd08407219748dea29defa0a69a31df&groupId=0&openType=openUrl&openPage=coze", "0589b6e80efbc996625e4969e283250e");
+    </script>
+    
+    <!-- jQuery库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+    // 自定义jQuery插件 - 内容加载器
+    (function($) {
+        $.fn.contentLoader = function(options) {
+            const settings = $.extend({
+                loadingClass: 'loading',
+                animationSpeed: 300,
+                errorMessage: '加载内容时出错，请稍后再试'
+            }, options);
+            
+            return this.each(function() {
+                const $container = $(this);
+                
+                // 公共加载方法
+                function loadContent(url, callback) {
+                    $container.addClass(settings.loadingClass);
+                    
+                    $.ajax({
+                        url: url,
+                        method: 'GET',
+                        dataType: 'html',
+                        success: function(data) {
+                            $container.fadeOut(settings.animationSpeed, function() {
+                                $(this).html(data).fadeIn(settings.animationSpeed, function() {
+                                    $(this).removeClass(settings.loadingClass);
+                                    if (typeof callback === 'function') {
+                                        callback();
+                                    }
+                                });
+                            });
+                        },
+                        error: function() {
+                            $container.html('<div class="error-message">' + settings.errorMessage + '</div>')
+                                .removeClass(settings.loadingClass);
+                        }
+                    });
+                }
+                
+                // 暴露公共方法
+                $container.data('contentLoader', {
+                    load: loadContent
+                });
+            });
+        };
+    })(jQuery);
+    
+    $(document).ready(function() {
+        // 初始化内容加载器插件
+        $('#content-area').contentLoader();
+        
+        // 1. 三栏布局响应式处理
+        function handleLayout() {
+            if ($(window).width() <= 768) {
+                $('.left-nav, .sidebar').insertBefore('.container');
+            } else {
+                $('.left-nav').insertBefore('.container');
+                $('.sidebar').insertAfter('.container');
+            }
+        }
+        
+        // 初始布局处理
+        handleLayout();
+        $(window).resize(handleLayout);
+        
+        // 2. 动态内容加载
+        $('.left-nav a').on('click', function(e) {
+            if ($(this).attr('href').startsWith('#')) {
+                e.preventDefault();
+                const sectionId = $(this).attr('href');
+                
+                // 显示加载动画
+                $('.loader').show();
+                $('#content-area').fadeOut(300, function() {
+                    // 模拟AJAX加载
+                    setTimeout(function() {
+                        $('.loader').hide();
+                        $(sectionId).show().siblings('section').hide();
+                        $('#content-area').fadeIn(300);
+                        
+                        // 滚动到对应位置
+                        $('html, body').animate({
+                            scrollTop: $(sectionId).offset().top - 70
+                        }, 500);
+                    }, 800);
+                });
+                
+                // 更新活动导航项
+                $('.left-nav a').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+        
+        // 侧边栏快速导航
+        $('.sidebar-link').on('click', function(e) {
+            e.preventDefault();
+            const section = $(this).data('section');
+            const target = $(this).data('target');
+            
+            // 显示对应部分
+            $('#' + section).show().siblings('section').hide();
+            
+            // 如果有特定目标，滚动到该元素
+            if (target) {
+                $('html, body').animate({
+                    scrollTop: $('#' + section).find('h3:contains("' + target + '")').offset().top - 70
+                }, 500);
+            } else {
+                $('html, body').animate({
+                    scrollTop: $('#' + section).offset().top - 70
+                }, 500);
+            }
+            
+            // 更新活动导航项
+            $('.left-nav a').removeClass('active');
+            $('.left-nav a[href="#' + section + '"]').addClass('active');
+        });
+        
+        // 3. 交互效果
+        // 效果1: 图片放大
+        $('.zoomable-img').on('click', function() {
+            // 先移除其他图片的放大状态
+            $('.zoomable-img.zoomed').not(this).removeClass('zoomed');
+            // 切换当前图片的放大状态
+            $(this).toggleClass('zoomed');
+        });
+        
+        // 点击其他地方取消图片放大
+        $(document).on('click', function(e) {
+            if (!$(e.target).hasClass('zoomable-img')) {
+                $('.zoomable-img.zoomed').removeClass('zoomed');
+            }
+        });
+        
+        // 效果2: 详情展开
+        $('.expand-toggle').on('click', function() {
+            const $content = $(this).prev('.expandable-content');
+            const $icon = $(this).find('i');
+            
+            $content.toggleClass('expanded');
+            $icon.toggleClass('fa-chevron-down fa-chevron-up');
+            
+            if ($content.hasClass('expanded')) {
+                $(this).html('收起详情 <i class="fas fa-chevron-up"></i>');
+            } else {
+                $(this).html('展开详情 <i class="fas fa-chevron-down"></i>');
+            }
+        });
+        
+        // 效果3: 轮播图
+        let currentSlide = 0;
+        const slides = $('.slide');
+        const indicators = $('.indicator');
+        
+        function showSlide(index) {
+            slides.removeClass('active').eq(index).addClass('active');
+            indicators.removeClass('active').eq(index).addClass('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+        
+        // 自动轮播
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        // 点击指示器切换
+        indicators.on('click', function() {
+            clearInterval(slideInterval);
+            showSlide($(this).index());
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+        
+        // 鼠标悬停暂停
+        $('.header-slideshow').hover(
+            function() { clearInterval(slideInterval); },
+            function() { slideInterval = setInterval(nextSlide, 5000); }
+        );
+        
+        // 4. 本地存储用户偏好
+        // 主题切换
+        function applyTheme(theme) {
+            $('body').removeClass('light-theme dark-theme warm-theme deep-warm-theme').addClass(theme + '-theme');
+            localStorage.setItem('theme', theme);
+        }
+        
+        // 字体大小调整
+        function setFontSize(size) {
+            let fontSize;
+            switch(size) {
+                case 'smaller':
+                    fontSize = '14px';
+                    break;
+                case 'larger':
+                    fontSize = '18px';
+                    break;
+                default:
+                    fontSize = '16px';
+            }
+            
+            $('body').css('font-size', fontSize);
+            localStorage.setItem('fontSize', size);
+        }
+        
+        // 初始化设置
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+        $('.' + savedTheme + '-theme-btn').addClass('active').siblings().removeClass('active');
+        
+        const savedFontSize = localStorage.getItem('fontSize') || 'default';
+        setFontSize(savedFontSize);
+        $('.font-' + savedFontSize).addClass('active').siblings().removeClass('active');
+        
+        // 主题切换事件
+        $('.theme-btn').on('click', function() {
+            let theme;
+            if ($(this).hasClass('light-theme-btn')) {
+                theme = 'light';
+            } else if ($(this).hasClass('dark-theme-btn')) {
+                theme = 'dark';
+            } else if ($(this).hasClass('warm-theme-btn')) {
+                theme = 'warm';
+            } else if ($(this).hasClass('deep-warm-theme-btn')) {
+                theme = 'deep-warm';
+            }
+            
+            applyTheme(theme);
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+        
+        // 字体大小调整事件
+        $('.font-smaller, .font-default, .font-larger').on('click', function() {
+            const size = $(this).hasClass('font-smaller') ? 'smaller' : 
+                         $(this).hasClass('font-larger') ? 'larger' : 'default';
+            setFontSize(size);
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+        
+        // 广告弹窗功能
+        const close = $('#close');
+        const divout = $('#divout');
+        let animationFrame;
+        let x = 0, y = 0;
+        let xdri = 1, ydri = 1;
+        const xstep = 2, ystep = 2;
+        let autoCloseTimer;
+        
+        // 关闭弹窗函数
+        function closePopup() {
+            divout.animate({opacity: 0}, 500, function() {
+                $(this).hide();
+            });
+            cancelAnimationFrame(animationFrame);
+            clearTimeout(autoCloseTimer);
+        }
+        
+        // 1. 关闭弹窗优化
+        close.on('click', closePopup);
+        
+        // 2. 平滑移动函数
+        function smoothMove() {
+            const winWidth = $(window).width();
+            const winHeight = $(window).height();
+            const maxRight = winWidth - divout.outerWidth();
+            const maxBottom = winHeight - divout.outerHeight();
+            
+            if (x <= 0 || x >= maxRight) xdri *= -1;
+            if (y <= 0 || y >= maxBottom) ydri *= -1;
+            
+            x += xstep * xdri;
+            y += ystep * ydri;
+            
+            divout.css({
+                'left': x,
+                'top': y
+            });
+            
+            animationFrame = requestAnimationFrame(smoothMove);
+        }
+        
+        // 3. 初始化位置
+        function initPosition() {
+            x = Math.random() * ($(window).width() - divout.outerWidth());
+            y = Math.random() * ($(window).height() - divout.outerHeight());
+            divout.css({
+                'left': x,
+                'top': y
+            });
+        }
+        
+        // 4. 窗口大小改变处理
+        $(window).on('resize', function() {
+            cancelAnimationFrame(animationFrame);
+            initPosition();
+            smoothMove();
+        });
+        
+        // 5. 鼠标事件优化
+        divout.on('mouseenter', function() {
+            cancelAnimationFrame(animationFrame);
+            clearTimeout(autoCloseTimer);
+        }).on('mouseleave', function() {
+            smoothMove();
+            autoCloseTimer = setTimeout(closePopup, 3000);
+        });
+        
+        // 6. 智能问候语
+        function getHello() {
+            const hour = new Date().getHours();
+            const timeSegments = [
+                [6, 8, ["早上好！", "晨光正好！"]],
+                [8, 12, ["上午好！", "精神饱满！"]],
+                [12, 14, ["中午好！", "该午休啦~"]],
+                [14, 18, ["下午好！", "保持活力！"]],
+                [18, 24, ["晚上好！", "注意休息！"]],
+                [0, 6, ["夜深了！", "早点休息~"]]
+            ];
+            
+            const segment = timeSegments.find(([start, end]) => hour >= start && hour < end);
+            $('#greeting').text(segment[2][Math.floor(Math.random() * segment[2].length)]);
+        }
+        
+        // 初始化
+        $(window).on('load', function() {
+            initPosition();
+            smoothMove();
+            getHello();
+            
+            // 显示广告弹窗
+            setTimeout(function() {
+                divout.css('opacity', 0).show().animate({opacity: 1}, 500);
+                autoCloseTimer = setTimeout(closePopup, 3000);
+            }, 2000);
+            
+            // 图片懒加载
+            $('img').each(function() {
+                const src = $(this).attr('data-src');
+                if (src) {
+                    $(this).attr('src', src);
+                }
+            });
+        });
+        
+        // 点击查看位置按钮
+        $('.location-btn').on('click', function() {
+            alert('即将跳转到地图页面，显示该店铺的位置信息');
+        });
+        
+        // 点击轮播图按钮
+        $('.slide-btn').on('click', function() {
+            const slideTitle = $(this).closest('.slide-overlay').find('h1').text();
+            alert('即将跳转到' + slideTitle + '的详细介绍页面');
+        });
+    });
+    </script>
+</body>
+</html>

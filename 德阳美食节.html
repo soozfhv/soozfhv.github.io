@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德阳美食节 - 舌尖上的德阳</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="shortcut icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-size: 16px;
+            --theme: 'light';
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: var(--font-size);
+            transition: var(--transition);
+        }
+
+        /* 浅色主题 */
+        body.light-theme {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        body.light-theme .container,
+        body.light-theme .left-nav,
+        body.light-theme .right-nav,
+        body.light-theme .sidebar {
+            background-color: white;
+            color: #333;
+        }
+
+        body.light-theme .attraction,
+        body.light-theme .food-card,
+        body.light-theme .transportation-item {
+            background-color: white;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        /* 深色主题 */
+        body.dark-theme {
+            background-color: #222;
+            color: #eee;
+        }
+
+        body.dark-theme .container,
+        body.dark-theme .left-nav,
+        body.dark-theme .right-nav,
+        body.dark-theme .sidebar {
+            background-color: #333;
+            color: #eee;
+        }
+
+        body.dark-theme .attraction,
+        body.dark-theme .food-card,
+        body.dark-theme .transportation-item {
+            background-color: #444;
+            color: #eee;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme footer {
+            background-color: #111;
+            color: #ddd;
+        }
+
+        /* 暖色主题 */
+        body.warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #fef5e7;
+            --dark-color: #5d4037;
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .container,
+        body.warm-theme .left-nav,
+        body.warm-theme .right-nav,
+        body.warm-theme .sidebar {
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .attraction,
+        body.warm-theme .food-card,
+        body.warm-theme .transportation-item {
+            background-color: #fae5d3;
+            color: #5d4037;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.warm-theme footer {
+            background-color: #5d4037;
+            color: #fef5e7;
+        }
+
+        /* 深暖色主题 */
+        body.deep-warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #3e2723;
+            --dark-color: #d7ccc8;
+            background-color: #3e2723;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .container,
+        body.deep-warm-theme .left-nav,
+        body.deep-warm-theme .right-nav,
+        body.deep-warm-theme .sidebar {
+            background-color: #4e342e;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .attraction,
+        body.deep-warm-theme .food-card,
+        body.deep-warm-theme .transportation-item {
+            background-color: #5d4037;
+            color: #d7ccc8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.deep-warm-theme footer {
+            background-color: #1b0000;
+            color: #d7ccc8;
+        }
+
+        /* 导航栏颜色修复 */
+        body.dark-theme .left-nav a,
+        body.deep-warm-theme .left-nav a {
+            color: #eee;
+        }
+
+        body.dark-theme .left-nav a:hover, 
+        body.dark-theme .left-nav a.active,
+        body.deep-warm-theme .left-nav a:hover,
+        body.deep-warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        body.warm-theme .left-nav a {
+            color: var(--dark-color);
+        }
+
+        body.warm-theme .left-nav a:hover,
+        body.warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 主容器样式 */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 内容区样式 */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        /* 页头样式 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .page-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .page-header .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .page-header .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* 内容样式 */
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* 图片样式 */
+        .content-img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .content-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* 美食展示区 */
+        .food-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .showcase-item {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .showcase-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .showcase-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .showcase-info {
+            padding: 15px;
+        }
+
+        /* 时间表样式 */
+        .schedule {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .schedule th, .schedule td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .schedule th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .schedule tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .schedule tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* 地图容器 */
+        .map-container {
+            height: 400px;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .food-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5em;
+            }
+            
+            .schedule th, .schedule td {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 内容区 -->
+        <div class="container">
+            <!-- 页头 -->
+            <div class="page-header">
+                <h1>2024德阳美食节</h1>
+                <p class="subtitle">舌尖上的德阳，品味蜀地风情</p>
+                <p class="meta">2024年11月15日-20日 | 德阳市文化广场</p>
+            </div>
+            
+            <!-- 活动介绍 -->
+            <section>
+                <h2>活动介绍</h2>
+                <img src="img/美食节海报.png" alt="德阳美食节" class="content-img">
+                <p>德阳美食节是德阳市最具影响力的美食文化盛会，自2010年创办以来已成功举办15届。本届美食节以"舌尖上的德阳，品味蜀地风情"为主题，将集中展示德阳及周边地区的特色美食、传统小吃和烹饪技艺。</p>
+                <p>美食节期间，将有来自全市100多家餐饮企业参展，设置传统美食区、创新美食区、非遗展示区、互动体验区等多个主题区域，为游客提供全方位的味觉体验。</p>
+                <p>除了美食展示和品尝，本届美食节还将举办德阳厨艺大赛、美食文化论坛、非遗技艺展演等丰富多彩的活动，让游客在品尝美食的同时，深入了解德阳的饮食文化。</p>
+            </section>
+            
+            <!-- 特色美食 -->
+            <section>
+                <h2>特色美食展示</h2>
+                <p>本届美食节将集中展示德阳最具代表性的特色美食，包括传统名菜、地方小吃和创新菜品。以下是部分亮点美食：</p>
+                
+                <div class="food-showcase">
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/孝泉牛肉.png" alt="孝泉牛肉">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>孝泉牛肉</h3>
+                            <p>德阳传统名吃，选用优质黄牛肉，采用秘制配方卤制而成，肉质鲜嫩，回味悠长。</p>
+                            <p><strong>推荐商家：</strong>孝泉牛肉馆</p>
+                        </div>
+                    </div>
+                    
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/德阳干锅.png" alt="德阳干锅">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>德阳干锅</h3>
+                            <p>德阳特色干锅，麻辣鲜香，食材丰富，配以多种香料炒制而成。</p>
+                            <p><strong>推荐商家：</strong>德阳干锅王</p>
+                        </div>
+                    </div>
+                    
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/德阳凉粉.png" alt="德阳凉粉">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>德阳凉粉</h3>
+                            <p>德阳最具特色的小吃之一，选用优质豌豆制作，口感爽滑，麻辣鲜香。</p>
+                            <p><strong>推荐商家：</strong>王凉粉</p>
+                        </div>
+                    </div>
+                    
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/兔.png" alt="黄许哑巴兔">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>黄许哑巴兔</h3>
+                            <p>德阳特色美食，选用新鲜兔肉，配以多种香料和辣椒烹制而成。</p>
+                            <p><strong>推荐商家：</strong>黄许哑巴兔总店</p>
+                        </div>
+                    </div>
+                    
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/绵竹笋子.png" alt="绵竹笋子">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>绵竹笋子</h3>
+                            <p>德阳绵竹特产，选用当地新鲜竹笋，配以腊肉或鸡肉炖煮而成。</p>
+                            <p><strong>推荐商家：</strong>绵竹农家乐</p>
+                        </div>
+                    </div>
+                    
+                    <div class="showcase-item">
+                        <div class="showcase-img">
+                            <img src="img/张飞牛肉.png" alt="张飞牛肉">
+                        </div>
+                        <div class="showcase-info">
+                            <h3>张飞牛肉</h3>
+                            <p>德阳传统名菜，选用优质黄牛肉，采用秘制配方腌制后风干而成。</p>
+                            <p><strong>推荐商家：</strong>张飞牛肉专卖店</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 活动日程 -->
+            <section>
+                <h2>活动日程</h2>
+                <table class="schedule">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>时间</th>
+                            <th>活动内容</th>
+                            <th>地点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>11月15日</td>
+                            <td>09:00-10:00</td>
+                            <td>开幕式</td>
+                            <td>主舞台</td>
+                        </tr>
+                        <tr>
+                            <td>11月15日</td>
+                            <td>10:30-12:00</td>
+                            <td>德阳厨艺大赛初赛</td>
+                            <td>厨艺展示区</td>
+                        </tr>
+                        <tr>
+                            <td>11月16日</td>
+                            <td>14:00-16:00</td>
+                            <td>美食文化论坛</td>
+                            <td>会议中心</td>
+                        </tr>
+                        <tr>
+                            <td>11月17日</td>
+                            <td>10:00-12:00</td>
+                            <td>非遗技艺展演</td>
+                            <td>非遗展示区</td>
+                        </tr>
+                        <tr>
+                            <td>11月18日</td>
+                            <td>14:00-16:00</td>
+                            <td>德阳厨艺大赛决赛</td>
+                            <td>厨艺展示区</td>
+                        </tr>
+                        <tr>
+                            <td>11月19日</td>
+                            <td>19:00-21:00</td>
+                            <td>美食节晚会</td>
+                            <td>主舞台</td>
+                        </tr>
+                        <tr>
+                            <td>11月20日</td>
+                            <td>15:00-16:00</td>
+                            <td>闭幕式暨颁奖典礼</td>
+                            <td>主舞台</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- 交通指南 -->
+            <section>
+                <h2>交通指南</h2>
+                <h3>活动地点</h3>
+                <p>德阳市文化广场（旌阳区长江东路与泰山北路交叉口）</p>
+                
+                <div class="map-container">
+                    <!-- 这里应该是嵌入的地图代码 -->
+                    <img src="img/德阳文化广场.png" alt="德阳文化广场地图" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                
+                <h3>公共交通</h3>
+                <p><strong>公交车：</strong>可乘坐1路、5路、12路、15路公交车至"文化广场站"下车</p>
+                <p><strong>出租车：</strong>从德阳站打车约15元，从市区各地打车约10-20元</p>
+                
+                <h3>自驾停车</h3>
+                <p>活动现场周边设有多个停车场：</p>
+                <ul>
+                    <li>文化广场地下停车场（500个车位）</li>
+                    <li>德阳体育馆停车场（300个车位）</li>
+                    <li>周边商场停车场（建议停放在洋洋百货或沃尔玛停车场）</li>
+                </ul>
+            </section>
+            
+            <!-- 参与方式 -->
+            <section>
+                <h2>参与方式</h2>
+                <p>本届美食节免费向公众开放，游客可直接前往活动现场参与。</p>
+                <p>如需参加厨艺大赛、美食论坛等特定活动，请提前通过以下方式报名：</p>
+                
+                <div style="margin: 20px 0;">
+                    <a href="#" class="btn">在线报名</a>
+                    <a href="tel:0838-1234567" class="btn btn-accent" style="margin-left: 10px;">电话咨询</a>
+                </div>
+                
+                <p><strong>咨询电话：</strong>0838-1234567</p>
+                <p><strong>官方微信公众号：</strong>德阳美食节</p>
+            </section>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 德阳美食节 | 主办单位：德阳市文化旅游局</p>
+		<p>网页制作：软件242 第七组</p>
+		<p>龚胜利，邓浩鹏，廖子宇，尚超</p>
+        <p>注：本网站图片仅为示意，实际效果依据真实为准</p>
+        
+    </footer>
+    
+    <!-- jQuery库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        // 主题切换功能
+        function applyTheme(theme) {
+            $('body').removeClass('light-theme dark-theme warm-theme deep-warm-theme').addClass(theme + '-theme');
+            localStorage.setItem('theme', theme);
+        }
+        
+        // 从主页面获取主题设置
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+        
+        // 返回首页按钮
+        $('a[href="index.html"]').on('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        });
+        
+        // 图片悬停效果
+        $('.content-img, .showcase-img img').hover(
+            function() {
+                $(this).css('transform', 'scale(1.02)');
+            },
+            function() {
+                $(this).css('transform', 'scale(1)');
+            }
+        );
+        
+        // 表格行悬停效果
+        $('.schedule tr').hover(
+            function() {
+                $(this).css('background-color', '#f5f5f5');
+            },
+            function() {
+                if ($(this).index() % 2 === 0) {
+                    $(this).css('background-color', '#f2f2f2');
+                } else {
+                    $(this).css('background-color', 'white');
+                }
+            }
+        );
+    });
+    </script>
+</body>
+</html>

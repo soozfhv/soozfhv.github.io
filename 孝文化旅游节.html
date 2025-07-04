@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>孝文化旅游节 - 德阳旅游</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="shortcut icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-size: 16px;
+            --theme: 'light';
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            font-size: var(--font-size);
+            transition: var(--transition);
+        }
+
+        /* 浅色主题 */
+        body.light-theme {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        body.light-theme .container,
+        body.light-theme .left-nav,
+        body.light-theme .right-nav,
+        body.light-theme .sidebar {
+            background-color: white;
+            color: #333;
+        }
+
+        body.light-theme .attraction,
+        body.light-theme .food-card,
+        body.light-theme .transportation-item {
+            background-color: white;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        /* 深色主题 */
+        body.dark-theme {
+            background-color: #222;
+            color: #eee;
+        }
+
+        body.dark-theme .container,
+        body.dark-theme .left-nav,
+        body.dark-theme .right-nav,
+        body.dark-theme .sidebar {
+            background-color: #333;
+            color: #eee;
+        }
+
+        body.dark-theme .attraction,
+        body.dark-theme .food-card,
+        body.dark-theme .transportation-item {
+            background-color: #444;
+            color: #eee;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme footer {
+            background-color: #111;
+            color: #ddd;
+        }
+
+        /* 暖色主题 */
+        body.warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #fef5e7;
+            --dark-color: #5d4037;
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .container,
+        body.warm-theme .left-nav,
+        body.warm-theme .right-nav,
+        body.warm-theme .sidebar {
+            background-color: #fef5e7;
+            color: #5d4037;
+        }
+
+        body.warm-theme .attraction,
+        body.warm-theme .food-card,
+        body.warm-theme .transportation-item {
+            background-color: #fae5d3;
+            color: #5d4037;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.warm-theme footer {
+            background-color: #5d4037;
+            color: #fef5e7;
+        }
+
+        /* 深暖色主题 */
+        body.deep-warm-theme {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #3e2723;
+            --dark-color: #d7ccc8;
+            background-color: #3e2723;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .container,
+        body.deep-warm-theme .left-nav,
+        body.deep-warm-theme .right-nav,
+        body.deep-warm-theme .sidebar {
+            background-color: #4e342e;
+            color: #d7ccc8;
+        }
+
+        body.deep-warm-theme .attraction,
+        body.deep-warm-theme .food-card,
+        body.deep-warm-theme .transportation-item {
+            background-color: #5d4037;
+            color: #d7ccc8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.deep-warm-theme footer {
+            background-color: #1b0000;
+            color: #d7ccc8;
+        }
+
+        /* 导航栏颜色修复 */
+        body.dark-theme .left-nav a,
+        body.deep-warm-theme .left-nav a {
+            color: #eee;
+        }
+
+        body.dark-theme .left-nav a:hover, 
+        body.dark-theme .left-nav a.active,
+        body.deep-warm-theme .left-nav a:hover,
+        body.deep-warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        body.warm-theme .left-nav a {
+            color: var(--dark-color);
+        }
+
+        body.warm-theme .left-nav a:hover,
+        body.warm-theme .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 主容器样式 */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* 导航栏 */
+        .left-nav {
+            flex: 0 0 220px;
+            background-color: var(--light-color);
+            padding: 20px;
+            order: 1;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        .left-nav ul {
+            list-style: none;
+        }
+
+        .left-nav li {
+            margin-bottom: 10px;
+        }
+
+        .left-nav a {
+            display: block;
+            padding: 12px 15px;
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-size: 0.95em;
+        }
+
+        .left-nav a:hover, .left-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* 内容区 */
+        .container {
+            flex: 1;
+            min-width: 0;
+            padding: 25px;
+            order: 2;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 992px) {
+            .left-nav {
+                flex: 0 0 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+            }
+            .left-nav, .container {
+                flex: 0 0 100%;
+            }
+        }
+
+        /* 内容区域样式 */
+        section {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin: 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* 活动详情样式 */
+        .festival-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .festival-header img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .festival-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .info-item strong {
+            color: var(--secondary-color);
+        }
+
+        /* 活动日程 */
+        .schedule {
+            margin-top: 30px;
+        }
+
+        .schedule-item {
+            display: flex;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .schedule-time {
+            flex: 0 0 150px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .schedule-content {
+            flex: 1;
+            padding: 15px;
+        }
+
+        /* 图片展示 */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+            cursor: zoom-in;
+        }
+
+        .gallery-item img.zoomed {
+            transform: scale(1.8);
+            cursor: zoom-out;
+            z-index: 100;
+            position: relative;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 主题切换 */
+        .theme-switcher {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .theme-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .theme-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .font-size-control {
+            margin-top: 20px;
+        }
+
+        .font-size-control button {
+            padding: 8px 12px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .font-size-control button:hover {
+            background: #f0f0f0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .festival-info {
+                flex-direction: column;
+            }
+            
+            .info-card {
+                min-width: 100%;
+            }
+            
+            .schedule-item {
+                flex-direction: column;
+            }
+            
+            .schedule-time {
+                flex: 0 0 auto;
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 左侧导航栏 -->
+        <nav class="left-nav">
+            <ul>
+                <li><a href="index.html">返回首页</a></li>
+                <li><a href="#about">活动介绍</a></li>
+                <li><a href="#schedule">活动日程</a></li>
+                <li><a href="#highlights">活动亮点</a></li>
+                <li><a href="#location">活动地点</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+            
+            <!-- 主题切换 -->
+            <div class="sidebar-widget">
+                <h3>主题设置</h3>
+                <div class="theme-switcher">
+                    <button class="theme-btn light-theme-btn active">浅色</button>
+                    <button class="theme-btn dark-theme-btn">深色</button>
+                    <button class="theme-btn warm-theme-btn">暖色</button>
+                    <button class="theme-btn deep-warm-theme-btn">深暖</button>
+                </div>
+                <div class="font-size-control">
+                    <h3>字体大小</h3>
+                    <button class="font-smaller">A-</button>
+                    <button class="font-default">A</button>
+                    <button class="font-larger">A+</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 主要内容区 -->
+        <div class="container">
+            <section class="festival-header">
+                <h1>德阳孝文化旅游节</h1>
+                <p>传承孝道文化 · 弘扬传统美德 · 促进社会和谐</p>
+                <img src="img/孝泉古镇.png" alt="孝文化旅游节" class="zoomable-img">
+            </section>
+            
+            <section id="about">
+                <h2>活动介绍</h2>
+                <p>德阳孝文化旅游节是德阳市最具影响力的传统文化活动之一，自2008年创办以来，已成功举办了十余届。活动以孝泉古镇为核心，围绕"孝"文化主题，通过丰富多彩的文化活动，传承和弘扬中华民族的传统美德。</p>
+                <p>孝泉古镇因"孝"而得名，已有2000多年历史，是中国孝文化发源地之一。据传，东汉时期，姜诗、庞氏夫妇"孝感天地，涌泉跃鲤"的故事就发生在这里，孝泉因此得名。</p>
+                <p>本届孝文化旅游节以"孝行天下·德润万家"为主题，将举办孝文化论坛、传统礼仪展示、孝道故事展演、非遗展示等系列活动，让游客在参与中感受孝文化的魅力。</p>
+                
+                <div class="festival-info">
+                    <div class="info-card">
+                        <h3>基本信息</h3>
+                        <div class="info-item"><strong>活动时间：</strong>2024年4月5日-4月7日</div>
+                        <div class="info-item"><strong>活动地点：</strong>德阳市旌阳区孝泉古镇</div>
+                        <div class="info-item"><strong>主办单位：</strong>德阳市人民政府</div>
+                        <div class="info-item"><strong>承办单位：</strong>德阳市文化旅游局</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>活动特色</h3>
+                        <div class="info-item">✔ 孝文化主题论坛</div>
+                        <div class="info-item">✔ 传统孝道礼仪展示</div>
+                        <div class="info-item">✔ 孝道故事展演</div>
+                        <div class="info-item">✔ 非遗技艺展示</div>
+                        <div class="info-item">✔ 孝泉特色美食品鉴</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="schedule">
+                <h2>活动日程</h2>
+                <p>本届孝文化旅游节为期三天，每天都有丰富多彩的活动内容，以下是主要活动安排：</p>
+                
+                <div class="schedule">
+                    <h3>第一天 (4月5日)</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>09:00-10:00</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>开幕式暨孝文化主题演出</h4>
+                            <p>在孝泉古镇广场举行盛大的开幕式，邀请知名艺术家表演孝文化主题节目。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>10:30-12:00</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>孝文化论坛</h4>
+                            <p>邀请文化学者、孝道研究专家就孝文化的现代意义进行深入探讨。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>14:00-17:00</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>传统孝道礼仪展示</h4>
+                            <p>在延祚寺广场展示古代孝道礼仪，包括祭祖仪式、敬老礼等。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>第二天 (4月6日)</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>09:00-11:30</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>孝道故事展演</h4>
+                            <p>通过戏剧、评书等形式演绎"二十四孝"等经典孝道故事。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>14:00-17:00</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>非遗技艺展示</h4>
+                            <p>展示德阳潮扇、绵竹年画等非物质文化遗产制作技艺。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>第三天 (4月7日)</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>09:00-11:00</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>孝泉美食品鉴会</h4>
+                            <p>品尝孝泉牛肉、德阳凉粉等当地特色美食。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <div>15:00-16:30</div>
+                        </div>
+                        <div class="schedule-content">
+                            <h4>闭幕式</h4>
+                            <p>总结活动成果，表彰孝道模范，宣布下届活动计划。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="highlights">
+                <h2>活动亮点</h2>
+                <h3>1. 孝文化主题论坛</h3>
+                <p>本届论坛以"孝文化的现代传承与创新"为主题，邀请国内知名文化学者、社会学专家、孝道研究专家等共同探讨孝文化在当代社会中的价值与意义。论坛将围绕孝文化与家庭教育、孝文化与和谐社会建设等议题展开深入讨论。</p>
+                
+                <h3>2. 传统孝道礼仪展示</h3>
+                <p>在延祚寺广场，专业团队将复原展示古代孝道礼仪，包括祭祖仪式、敬老礼、成人礼等传统礼仪。游客不仅可以观看，还可以参与体验，感受传统文化的魅力。</p>
+                
+                <h3>3. 孝道故事展演</h3>
+                <p>通过戏剧、评书、皮影戏等多种艺术形式，生动演绎"二十四孝"等经典孝道故事。特别值得一提的是，本届活动新增了现代孝道故事展演环节，讲述当代孝子的感人故事。</p>
+                
+                <h3>4. 非遗技艺展示</h3>
+                <p>活动期间，将有德阳潮扇、绵竹年画、孝泉牛肉制作技艺等非物质文化遗产的展示和体验活动。游客可以近距离观看非遗传承人的精湛技艺，还可以参与制作体验。</p>
+                
+            </section>
+            
+            <section id="location">
+                <h2>活动地点</h2>
+                <h3>孝泉古镇</h3>
+                <p>孝泉古镇位于德阳市旌阳区，距市区约10公里，已有2000多年历史，是中国孝文化发源地之一。古镇保留了大量明清时期的建筑风貌，主要景点有延祚寺、姜孝祠等。</p>
+                
+                <div class="festival-info">
+                    <div class="info-card">
+                        <h3>交通指南</h3>
+                        <div class="info-item"><strong>自驾：</strong>从德阳城区出发，沿德茂公路行驶约20分钟即可到达。</div>
+                        <div class="info-item"><strong>公交：</strong>在德阳汽车站乘坐前往孝泉的班车，约30分钟一班。</div>
+                        <div class="info-item"><strong>出租车：</strong>从德阳城区打车约25-30元。</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>周边景点</h3>
+                        <div class="info-item">✔ 延祚寺</div>
+                        <div class="info-item">✔ 姜孝祠</div>
+                        <div class="info-item">✔ 孝泉涌泉</div>
+                        <div class="info-item">✔ 孝泉古镇老街</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact">
+                <h2>联系方式</h2>
+                <p>如需了解更多关于孝文化旅游节的信息，或有意向参与活动，请联系我们：</p>
+                
+                <div class="festival-info">
+                    <div class="info-card">
+                        <h3>组委会联系方式</h3>
+                        <div class="info-item"><strong>电话：</strong>0838-1234567</div>
+                        <div class="info-item"><strong>邮箱：</strong>xiaowenhua@deyang.gov.cn</div>
+                        <div class="info-item"><strong>地址：</strong>德阳市旌阳区文化旅游局</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>志愿者招募</h3>
+                        <p>本届活动面向社会招募志愿者，主要负责活动引导、讲解服务等工作。</p>
+                        <button class="location-btn">报名志愿者</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 德阳孝文化旅游节 | 设计制作：软件242 第七组</p>
+		<p>龚胜利，邓浩鹏，廖子宇，尚超</p>
+        <p>注：本网站图片仅为示意，实际效果依据真实为准</p>
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">隐私政策</a>
+            <a href="#">使用条款</a>
+            <a href="#">帮助中心</a>
+            <a href="#">网站地图</a>
+        </div>
+    </footer>
+    
+    <!-- jQuery库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        // 主题切换功能
+        function applyTheme(theme) {
+            $('body').removeClass('light-theme dark-theme warm-theme deep-warm-theme').addClass(theme + '-theme');
+            localStorage.setItem('theme', theme);
+        }
+        
+        // 字体大小调整
+        function setFontSize(size) {
+            let fontSize;
+            switch(size) {
+                case 'smaller':
+                    fontSize = '14px';
+                    break;
+                case 'larger':
+                    fontSize = '18px';
+                    break;
+                default:
+                    fontSize = '16px';
+            }
+            
+            $('body').css('font-size', fontSize);
+            localStorage.setItem('fontSize', size);
+        }
+        
+        // 初始化设置
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+        $('.' + savedTheme + '-theme-btn').addClass('active').siblings().removeClass('active');
+        
+        const savedFontSize = localStorage.getItem('fontSize') || 'default';
+        setFontSize(savedFontSize);
+        $('.font-' + savedFontSize).addClass('active').siblings().removeClass('active');
+        
+        // 主题切换事件
+        $('.theme-btn').on('click', function() {
+            let theme;
+            if ($(this).hasClass('light-theme-btn')) {
+                theme = 'light';
+            } else if ($(this).hasClass('dark-theme-btn')) {
+                theme = 'dark';
+            } else if ($(this).hasClass('warm-theme-btn')) {
+                theme = 'warm';
+            } else if ($(this).hasClass('deep-warm-theme-btn')) {
+                theme = 'deep-warm';
+            }
+            
+            applyTheme(theme);
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+        
+        // 字体大小调整事件
+        $('.font-smaller, .font-default, .font-larger').on('click', function() {
+            const size = $(this).hasClass('font-smaller') ? 'smaller' : 
+                         $(this).hasClass('font-larger') ? 'larger' : 'default';
+            setFontSize(size);
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+        
+        // 图片放大效果
+        $('.zoomable-img').on('click', function() {
+            // 先移除其他图片的放大状态
+            $('.zoomable-img.zoomed').not(this).removeClass('zoomed');
+            // 切换当前图片的放大状态
+            $(this).toggleClass('zoomed');
+        });
+        
+        // 点击其他地方取消图片放大
+        $(document).on('click', function(e) {
+            if (!$(e.target).hasClass('zoomable-img')) {
+                $('.zoomable-img.zoomed').removeClass('zoomed');
+            }
+        });
+        
+        // 志愿者报名按钮
+        $('.location-btn').on('click', function() {
+            alert('即将跳转到志愿者报名页面');
+        });
+        
+        // 平滑滚动
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            const target = $(this).attr('href');
+            if (target !== '#') {
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - 70
+                }, 500);
+            }
+        });
+    });
+    </script>
+</body>
+</html>
